@@ -55,3 +55,5 @@ class lexer(object):
 
         # Return created tokens
         return tokens
+
+        #CONTOH PERUBAHAN
