@@ -20,3 +20,13 @@ class pemisahanLexer(Lexer):
     ANGKA   = r'\d+'
     KATA    = r'\".*?\"'
     DOBEQ   = r'=='
+
+    #token remapping kasus khusus
+    NAMA['cetak']   = CETAK
+    NAMA['jika']    = JIKA
+    NAMA['kaji']    = KAJI
+    NAMA['ketika']  = KETIKA 
+    NAMA['maka']    = MAKA
+    NAMA['untuk']   = UNTUK
+    NAMA['hingga']  = HINGGA
+    NAMA['fungsi']  = FUNGSI
