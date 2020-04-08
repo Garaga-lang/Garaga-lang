@@ -50,3 +50,24 @@ class pemisahanLexer(Lexer):
     def error(self, t):
         print('Baris %d: TERDAPAT KESALAHAN KARAKTER %r'%(self.lineno, t.value[0]))
         self.index+=1
+
+#fungsi main untuk menjalankan lexer.py
+if __name__ == '__main__':
+    #data uji coba
+    ujiCoba = '''
+# Komentar
+nama = "Garaga";
+tahun = 2020;
+fungsi hitung(){a+b;} :
+untuk i=1 hingga 3 maka
+    {cetak "halo";
+    ketika a>0 maka a=a*1/2
+    jika b == a maka cetak nama;
+    kaji hitung();
+    }
+'''
+    lexer = pemisahanLexer()
+    #menampilkan token yang berhasil dikenali
+    for tok in lexer.tokenize(ujiCoba):
+        #print('tipe =%r --> nilai=%r'%(tok.type, tok.value))
+        print(tok)
