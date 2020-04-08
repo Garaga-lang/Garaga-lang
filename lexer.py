@@ -45,3 +45,8 @@ class pemisahanLexer(Lexer):
             last_cr = 0
         column = (token.index - last_cr) + 1
         return column
+    
+    #penanganan kesalahan
+    def error(self, t):
+        print('Baris %d: TERDAPAT KESALAHAN KARAKTER %r'%(self.lineno, t.value[0]))
+        self.index+=1
