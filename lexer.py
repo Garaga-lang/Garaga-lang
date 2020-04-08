@@ -14,3 +14,9 @@ class pemisahanLexer(Lexer):
     ignore = ' \t'              #mengabaikan spaso
     ignore_comment = r'\#.*'    #mengabaikan komentar
     ignore_newline = r'\n+'     #mengabaikan perintah \n
+
+    #membuat token harus mengenali reguler expression seperti apa
+    NAMA    = r'[a-zA-Z_][a-zA-Z0-9_]*'
+    ANGKA   = r'\d+'
+    KATA    = r'\".*?\"'
+    DOBEQ   = r'=='
