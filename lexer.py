@@ -30,3 +30,18 @@ class pemisahanLexer(Lexer):
     NAMA['untuk']   = UNTUK
     NAMA['hingga']  = HINGGA
     NAMA['fungsi']  = FUNGSI
+
+    #menambahkan aski
+    def ANGKA(self, t):            #merubah angka ke integer
+        t.value = int(t.value)
+        return t
+    
+    def ignore_newline(self, t):    #mendefiniskan menolak baris baru
+        self.lineno += len(t.value)
+    
+    def find_column(text, token):   #mencari kolom
+        last_cr = text.rfind('\n', 0, token.index)
+        if last_cr < 0:
+            last_cr = 0
+        column = (token.index - last_cr) + 1
+        return column
