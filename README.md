@@ -1,2 +1,2 @@
 # Garaga-lang 2020
-Garaga-lang adalah sebuah bahasa pemrograman baru yang akan dikembangkan.
+Garaga-lang adalah sebuah bahasa pemrograman baru yang akan dikembangkan. Bahasa ini menggunakan menggunakan bahasa python sebagai dasar pemrograman-seperti pembuatan token, pemisahan token, pengidentifikasian dan pengujian prorgram.
