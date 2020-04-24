@@ -5,7 +5,7 @@ from sly import Lexer
 
 #membuat kelas untuk lexer garaga-lang
 #lexer digunakan untuk memisahkan text ke dalam token
-class pemisahanLexer(Lexer):
+class pemisahan(Lexer):
     #membuat nama-nama token (sangat diperlukan)
     tokens   = {NAMA, ANGKA, KATA, CETAK, JIKA, KAJI, KETIKA, MAKA, UNTUK, HINGGA, FUNGSI, DOBEQ}
     literals = { '=', '+', '-', '/', '*', '(', ')', ',', ';', '{', '}', '<', '>'}
@@ -66,7 +66,7 @@ untuk i=1 hingga 3 maka
     kaji hitung();
     }
 '''
-    lexer = pemisahanLexer()
+    lexer = pemisahan()
     #menampilkan token yang berhasil dikenali
     for tok in lexer.tokenize(ujiCoba):
         #print('tipe =%r --> nilai=%r'%(tok.type, tok.value))
