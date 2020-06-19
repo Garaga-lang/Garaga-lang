@@ -1,11 +1,16 @@
-from sly import Parser
+# BAHASA PEMROGRAMAN GARAGA-LANG 2020
+# membuat parser
 # Mengambil kelas parser di library sly
+from sly import Parser
+
+# mengimport kelas GaragaLexer
 import GaragaLexer
 
 # ---class pengidentifikasian---------------------------------------------------------
-# Membuat kelas untuk lexer garaga-lang
+# Membuat kelas untuk parser garaga-lang
 # Parser digunakan untuk mengidentifikasi token
 class Program(Parser):
+
     # Mengambil daftar token dari kelas lexer
     tokens = GaragaLexer.Program.tokens
 
@@ -14,153 +19,133 @@ class Program(Parser):
     precedence = (
         ('left', '+', '-'),
         ('left', '*', '/'),
-        ('right', 'UMINUS'),  # Unary minus operator
+        ('right', 'UMINUS'),
     )
 
     # Membuat array penempatan token
     def __init__(self):
         self.env = {}
-        self.fun = {}
 
-    # ---statement------------------------------------------------------------------------
     # Membuat dekorator untuk token kosong
     @_('')
     def statement(self, p):
         pass
 
-    # Membuat dekorator untuk ekpresi
-    @_('expr')
+    # Membuat dekorator untuk untuk - hingga
+    @_('UNTUK var_assign HINGGA expr MAKA statement')
     def statement(self, p):
-        return (p.expr)
+        return ('perulangan_untuk', ('konfigurasi_perulangan_untuk', p.var_assign, p.expr), p.statement)
+
+    # Membuat dekorator untuk jika - maka - kaji
+    @_('JIKA condition MAKA statement KAJI statement')
+    def statement(self, p):
+        return ('jika_stmt', p.condition, ('branch', p.statement0, p.statement1))
+
+    # Membuat dekorator untuk fungsi nama() ->
+    @_('FUNGSI NAMA "(" ")" ARROW statement')
+    def statement(self, p):
+        return ('pendefinisian_fungsi', p.NAMA, p.statement)
+
+    # Membuat dekorator pemanggilan fungsi
+    @_('NAMA "(" ")"')
+    def statement(self, p):
+        return ('pemanggilan_fungsi', p.NAMA)
+
+    # Membuat dekorator untuk penulisan double equation (==)
+    @_('expr DOBEQ expr')
+    def condition(self, p):
+        return ('condition_dobeq', p.expr0, p.expr1)
+
+    # Membuat dekorator untuk penulisan tidak sama dengan (!=)
+    @_('expr TIDAKSAM expr')
+    def condition(self, p):
+        return ('condition_tidaksam', p.expr0, p.expr1)
+
+    # Membuat dekorator untuk penulisan kurang dari sama dengan (<=)
+    @_('expr KURDARSAM expr')
+    def condition(self, p):
+        return ('condition_kurdarsam', p.expr0, p.expr1)
+
+    # Membuat dekorator untuk penulisan lebih dari sama dengan (>=)
+    @_('expr LEBDARSAM expr')
+    def condition(self, p):
+        return ('condition_lebdarsam', p.expr0, p.expr1)
+
+    # Membuat dekorator untuk penulisan kurang dari (<)
+    @_('expr "<" expr')
+    def condition(self, p):
+        return ('condition_kurdar', p.expr0, p.expr1)
+
+    # Membuat dekorator untuk penulisan lebih dari (>)
+    @_('expr ">" expr')
+    def condition(self, p):
+        return ('condition_lebdar', p.expr0, p.expr1)
 
     # Membuat dekorator var_assign
     @_('var_assign')
     def statement(self, p):
         return p.var_assign
 
-    # Membuat dekorator untuk cetak kata(string)
-    @_('CETAK KATA')
-    def statement(self, p):
-        return p.KATA
-
-    # Membuat dekorator untuk nama fungsi
-    @_('NAMA "(" ")"')
-    def statement(self, p):
-       return self.fun[p.NAMA]
-
-    # Membuat dekorator untuk untuk - hingga
-    @_('UNTUK expr HINGGA expr MAKA statement')
-    def statement(self, p):
-        for i in range(p.expr0, p.expr1):
-            hasil = self.statement
-            print(hasil)
-
-    # Membuat dekorator untuk jika - maka - kaji
-    @_('JIKA condition MAKA statement KAJI statement')
-    def statement(self, p):
-        #return ('jika_stmt', p.condition, ('cabang', p.statement0, p.statement1))
-        if p.condition:
-            return p.statement0
-        else: return p.statement1
-
-    # Membuat dekorator untuk fungsi nama() ->
-    @_('FUNGSI NAMA "(" ")" ARROW statement')
-    def statement(self, p):
-        self.fun[p.NAMA] = p.statement
-
-    # Membuat dekorator untuk ketika - maka
-    @_('KETIKA condition MAKA statement')
-    def statement(self, p):
-        while p.condition:
-            p.statement
-
-    # ---var_assign-----------------------------------------------------------------------
     # Membuat dekorator untuk penulisan nama = ekpresi
     @_('NAMA "=" expr')
     def var_assign(self, p):
-        self.env[p.NAMA] = p.expr
+        return ('var_assign', p.NAMA, p.expr)
 
     # Membuat dekorator untuk penulisan nama = kata(string)
     @_('NAMA "=" KATA')
     def var_assign(self, p):
-        self.env[p.NAMA] = p.KATA
+        return ('var_assign', p.NAMA, p.KATA)
 
-    # ---condition------------------------------------------------------------------------
-    # Membuat dekorator untuk penulisan double equation (==)
-    @_('expr DOBEQ expr')
-    def condition(self, p):
-        return p.expr0 == p.expr1
+    # Membuat dekorator untuk ekpresi
+    @_('expr')
+    def statement(self, p):
+        return (p.expr)
 
-    # Membuat dekorator untuk penulisan tidak sama dengan (!=)
-    @_('expr TIDAKSAM expr')
-    def condition(self, p):
-        return p.expr0 != p.expr1
-
-    # Membuat dekorator untuk penulisan kurang dari sama dengan (<=)
-    @_('expr KURDARSAM expr')
-    def condition(self, p):
-        return p.expr0 <= p.expr1
-
-    # Membuat dekorator untuk penulisan lebih dari sama dengan (>=)
-    @_('expr LEBDARSAM expr')
-    def condition(self, p):
-        return p.expr0 >= p.expr1
-
-    # Membuat dekorator untuk penulisan kurang dari (<)
-    @_('expr "<" expr')
-    def condition(self, p):
-        return p.expr0 < p.expr1
-
-    # Membuat dekorator untuk penulisan lebih dari (>)
-    @_('expr ">" expr')
-    def condition(self, p):
-        return p.expr0 > p.expr1
-
-    # ---expression-----------------------------------------------------------------------
     # Membuat dekorator untuk penjumlahan (+)
     @_('expr "+" expr')
     def expr(self, p):
-        return p.expr0 + p.expr1
+        return ('tambah', p.expr0, p.expr1)
 
     # Membuat dekorator untuk pengurangan (-)
     @_('expr "-" expr')
     def expr(self, p):
-        return p.expr0 - p.expr1
+        return ('kurang', p.expr0, p.expr1)
 
     # Membuat dekorator untuk perkalian (*)
     @_('expr "*" expr')
     def expr(self, p):
-        return p.expr0 * p.expr1
+        return ('kali', p.expr0, p.expr1)
 
     # Membuat dekorator untuk pembagian (/)
     @_('expr "/" expr')
     def expr(self, p):
-        return p.expr0 / p.expr1
+        return ('bagi', p.expr0, p.expr1)
 
     # Membuat dekorator untuk nilai minus (-ekspresi)
     @_('"-" expr %prec UMINUS')
     def expr(self, p):
-        return -p.expr
+        #return p.expr
+        return ('minus', p.expr)
 
     # Membuat dekorator untuk nama variabel
     @_('NAMA')
     def expr(self, p):
-        try:
-            return self.env[p.NAMA]
-        except LookupError:
-            print("Undefined name '%s'" % p.NAMA)
-            return 0
+        return ('var', p.NAMA)
 
     # Membuat dekorator untuk angka atau integer
     @_('ANGKA')
     def expr(self, p):
-        return p.ANGKA
+        return ('angka', p.ANGKA)
 
     # Membuat dekorator untuk cetak ekspresi
     @_('CETAK expr')
     def expr(self, p):
-        return p.expr
+        return ('cetak', p.expr)
 
+    # Membuat dekorator untuk cetak kata(string)
+    @_('CETAK KATA')
+    def statement(self, p):
+        return ('cetak', p.KATA)
 
 # ---fungai main----------------------------------------------------------------------
 # fungsi main program untuk melakukan pengujian pada parser
@@ -171,6 +156,18 @@ if __name__ == '__main__':
     parser = Program()
     # Membuat array
     env = {}
+    ujiCoba = '''
+        # Komentar
+        nama = "Garaga"
+        tahun = 2020
+        a=2
+        b=3
+        cetak tahun
+        fungsi hitung() -> cetak a+b
+        untuk a hingga 3 maka cetak nama
+        jika a==2 maka cetak "true" kaji cetak "false"
+        {}
+        '''
     while True:
         try:
             text = input('garaga > ')
