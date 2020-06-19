@@ -3,14 +3,13 @@
 # mengambil kelas Lexer di dalam Library sly
 from sly import Lexer
 
-
 # ---class pemisahan---------------------------------------------------------
 # membuat kelas untuk lexer garaga-lang
 # lexer digunakan untuk memisahkan text ke dalam token
 class Program(Lexer):
     # membuat nama-nama token (sangat diperlukan)
     tokens = {NAMA, ANGKA, KATA, CETAK, JIKA, KAJI, MAKA, UNTUK, HINGGA, FUNGSI,
-              ARROW, KETIKA, DOBEQ, KURDARSAM, LEBDARSAM, TIDAKSAM}
+              ARROW, DOBEQ, KURDARSAM, LEBDARSAM, TIDAKSAM}
     # literals = { '=', '+', '-', '/', '*', '(', ')', ',', ';', '{', '}', '<', '>'}
     literals = {'=', '+', '-', '/', '*', '(', ')', ',', ';', '<', '>'}
 
@@ -37,7 +36,6 @@ class Program(Lexer):
     NAMA['untuk'] = UNTUK
     NAMA['hingga'] = HINGGA
     NAMA['fungsi'] = FUNGSI
-    NAMA['ketika'] = KETIKA
 
     # menambahkan aski
     def ANGKA(self, t):  # merubah angka ke integer
@@ -59,7 +57,6 @@ class Program(Lexer):
         print('Baris %d: TERDAPAT KESALAHAN KARAKTER %r' % (self.lineno, t.value[0]))
         self.index += 1
 
-
 # ---fungai main----------------------------------------------------------------------
 # fungsi main program untuk melakukan pengujian pada lexer
 if __name__ == '__main__':
@@ -74,7 +71,6 @@ if __name__ == '__main__':
     fungsi hitung() -> cetak a+b
     untuk a hingga 3 maka cetak nama
     jika a==2 maka cetak "true" kaji cetak "false"
-    ketika b!=3 maka cetak "false"
     {}
     '''
     # memanggil kelas pemisahan()
