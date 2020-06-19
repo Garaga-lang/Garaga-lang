@@ -1,0 +1,16 @@
+#garaga2020
+cetak " "
+cetak "PROGRAM GARAGA FUNGSI()"
+cetak " "
+cetak "Ini adalah program fungsi() pada garaga-lang"
+
+cetak "-------------------------------------------"
+cetak "misalkan: "
+cetak "lokasi_awal = 5"
+cetak "lokasi_akhir = 60"
+cetak "fungsi perpindahan() -> lokasi_akhir-lokasi_awal"
+cetak "hasil: "
+lokasiAwal = 5
+lokasiAkhir = 60
+fungsi perpindahan() -> lokasiAkhir - lokasiAwal
+perpindahan()

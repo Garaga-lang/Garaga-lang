@@ -1,0 +1,13 @@
+#garaga2020
+cetak " "
+cetak "PROGRAM GARAGA UNTUK HINGGA MAKA"
+cetak " "
+cetak "Ini adalah program untuk hingga maka pada garaga-lang"
+
+cetak "-------------------------------------------"
+cetak "misalkan: "
+cetak "a=2"
+cetak "untuk b=2-a hingga 5 maka cetak b"
+a=2
+cetak "hasil: "
+untuk b=2-a hingga 5 maka cetak b

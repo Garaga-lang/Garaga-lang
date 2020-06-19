@@ -1,0 +1,30 @@
+#garaga2020
+cetak " "
+cetak "PROGRAM GARAGA ARITMATIKA"
+cetak " "
+cetak "pendefinisian:"
+cetak "a=2"
+a = 2
+cetak "b=3"
+b = 3
+cetak "c=-4"
+c = -4
+cetak "d=5"
+d = 5
+cetak " "
+cetak "Operasi: "
+cetak "op1 = a+b"
+op1 = a+b
+cetak op1
+cetak " "
+cetak "op2 = op1*c"
+op2 = op1*c
+cetak op2
+cetak " "
+cetak "op2 = op3/d"
+op3 = op2/d
+cetak op3
+cetak " "
+cetak "op4 = op3-3"
+op4 = op3-3
+cetak op4

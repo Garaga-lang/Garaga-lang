@@ -1,0 +1,30 @@
+#garaga2020
+cetak " "
+cetak "PROGRAM GARAGA JIKA MAKA KAJI"
+cetak " "
+cetak "Ini adalah program jika maka kaji pada garaga-lang"
+
+cetak "-------------------------------------------"
+cetak "misalkan: "
+cetak "a=2"
+cetak "jika a==2 maka cetak true kaji cetak false"
+a=2
+cetak "hasil: "
+jika a==2 maka cetak "true" kaji cetak "false"
+
+cetak "-------------------------------------------"
+cetak "misalkan: "
+cetak "a=10"
+cetak "jika a<=5 maka cetak true kaji cetak false"
+a=10
+cetak "hasil: "
+jika a<=2 maka cetak "true" kaji cetak "false"
+
+cetak "-------------------------------------------"
+cetak "misalkan: "
+cetak "a=5"
+cetak "jika a!=10 maka a=a+2 kaji a=a-2"
+a=5
+cetak "hasil: "
+jika a!=10 maka a=a+2 kaji cetak a=a-2
+
